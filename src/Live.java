@@ -1,0 +1,2 @@
+public class Live {
+}
