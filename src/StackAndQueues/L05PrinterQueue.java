@@ -10,24 +10,21 @@ public class L05PrinterQueue {
         String command = scanner.nextLine();
 
         ArrayDeque<String> printerQue = new ArrayDeque<>();
-        while (!command.equals("print")){
-            if(!command.equals("cancel")){
-                printerQue.offer(command);
-            }else {
-                if (!printerQue.isEmpty()){
-                    System.out.println("Canceled " + printerQue.poll());
-                }else {
+        while (!command.equals("print")) {
+            if (command.equals("cancel")) {
+                String firstTask = printerQue.poll();
+                if (firstTask == null){
                     System.out.println("Printer is on standby");
+                }else {
+                    System.out.println("Canceled " + firstTask);
                 }
+            } else {
+                printerQue.offer(command);
             }
             command = scanner.nextLine();
         }
-        if (printerQue.isEmpty()){
-            return;
-        }else {
-            for (int i = 0; i <= printerQue.size(); i++) {
-                System.out.println(printerQue.pop());
-            }
+        while (!printerQue.isEmpty()){
+            System.out.println(printerQue.poll());
         }
     }
 }
