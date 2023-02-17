@@ -12,49 +12,33 @@ public class L08BrowserHistoryUpgrade {
 
         String inputText = scanner.nextLine();
 
-        boolean exclusion = false;
 
         while (!inputText.equals("Home")){
-            if (!inputText.contains("back") && !inputText.contains("forward")){
-                stack.push(inputText);
-                exclusion = false;
-                System.out.println(inputText);
-            }
-            if (inputText.equals("back")) {
-                if (exclusion && !stack.isEmpty()){
-                    System.out.println(stack.peek());
-                    exclusion = false;
-                    inputText = scanner.nextLine();
-                    continue;
-                }
-
+            if(inputText.equals("back")){
                 if (stack.isEmpty() || stack.size() == 1){
                     System.out.println("no previous URLs");
                     inputText = scanner.nextLine();
                     continue;
                 }else {
-                    String permanent = stack.pop();
-                    queue.addFirst(permanent);
+                    queue.addFirst(stack.pop());
                     System.out.println(stack.peek());
                 }
-            }
-
-            if (inputText.equals("forward")){
-                if (queue.isEmpty()){
-                    System.out.println("no next URLs");
-                    exclusion = true;
-                    inputText = scanner.nextLine();
-                    continue;
+            } else if(inputText.equals("forward")) {
+                if (!queue.isEmpty()){
+                    stack.push(queue.poll());
+                    System.out.println(stack.peek());
                 }else {
-                    System.out.println(queue.peek());
-                    String permanent = queue.peek();
-                    stack.push(permanent);
-                    //queue.clear();
+                    System.out.println("no next URLs");
                 }
-
+            }else {
+                stack.push(inputText);
+                System.out.println(stack.peek());
             }
 
             inputText = scanner.nextLine();
+            if (!inputText.equals("forward") && !inputText.equals("back") && queue.size() == 1){
+                queue.clear();
+            }
         }
 
     }

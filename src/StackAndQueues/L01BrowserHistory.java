@@ -18,7 +18,6 @@ public class L01BrowserHistory {
                 stack.push(inputText);
                 System.out.println(inputText);
             }else {
-
                 if (stack.isEmpty() || stack.size() == 1){
                     System.out.println("no previous URLs");
                     inputText = scanner.nextLine();
